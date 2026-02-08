@@ -1,24 +1,20 @@
 <?php
+$subject    = 'E-mail from example'; // Subject of your email
+$to         = 'email@example.com'; //Your e-mail address
+$headers    = 'MIME-Version: 1.0' . "\r\n" .
+              'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+$message    = 'Name: ' . $_POST['name'] . ' <br/>' .
+              'E-mail: ' . $_POST['email'] . ' <br/>' .
+              'Phone: ' . $_POST['phone'] . ' <br/>' .
+              'Website: ' . $_POST['website'] . ' <br/>' .
+              'Message: ' . $_POST['message'];
 
-if ( $_POST ) {
-
-	$frm_name  = 'Johnny Vasquez'; // your name
-	$recepient = 'johnny@johnnyvasquezjr.co'; // your e-mail
-	$sitename  = 'Johnny Vasquez Jr Co'; // your site name
-	$subject   = "New contact from \"$sitename\""; // subject template
-
-	$name  = trim( $_POST['visitor_name'] );
-	$email = trim( $_POST['visitor_email'] );
-	$msg   = trim( $_POST['visitor_msg'] );
-
-	$message = "
-	-------------------<br><br>
-	Visitor name: $name <br>
-	Visitor email: $email <br><br>
-	$msg
-	<br><br>-------------------
-	";
-
-	mail( $recepient, $subject, $message, "From: $name <$email>" . "\r\n" . "Reply-To: $email" . "\r\n" . 'X-Mailer: PHP/' . phpversion() . "\r\n" . 'Content-type: text/html; charset="utf-8"' );
-
+if (@mail($to, $subject, $message, $headers))
+{
+  echo 'sent';
 }
+else
+{
+  echo 'failed';
+}
+?>
